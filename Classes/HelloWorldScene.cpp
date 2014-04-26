@@ -66,6 +66,7 @@ bool HelloWorld::init()
 	
 	Sprite *enemy = Sprite::create("dribbble.png");
 	enemy->setPosition(Point(800, 300 ));
+    enemy->setTag(999);
 	
 	this->addChild(enemy);
 	
@@ -99,7 +100,21 @@ void HelloWorld::addCat()
 
 void HelloWorld::update(float dt)
 {
-//	log("1");
+    Rect carRect = this->getChildByTag(999)->boundingBox();
+    
+    for(Sprite *cat : cats)
+    {
+        Rect rect = cat->boundingBox();
+        
+        if (carRect.intersectsRect(rect)) {
+            log("hit");
+//            this->removeChild(cat);
+            cat->stopAllActions();
+        }
+        
+    }
+    
+    
 }
 
 
